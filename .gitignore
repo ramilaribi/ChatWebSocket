@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# Editor directories and files
+.vscode/
+
+# Optional (if you don't want to commit package-lock)
+package-lock.json
+
+# Logs and temp files
+*.log
+tmp/
