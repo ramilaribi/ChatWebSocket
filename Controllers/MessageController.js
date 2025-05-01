@@ -1,13 +1,13 @@
-import Message from '../models/Message.js';
+import Message from '../models/MessageModel.js';
 
 export const sendMessage = async (req, res) => {
   const { senderId, receiverId, content } = req.body;
-
   try {
     const message = new Message({ senderId, receiverId, content });
     await message.save();
 
     res.status(201).json(message);
+    console.log(message)
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
