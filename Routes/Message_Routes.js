@@ -1,11 +1,9 @@
 import express from 'express';
-import { sendMessage, fetchChatHistory } from '../Controllers/MessageController.js';
+import { fetchChatHistory } from '../Controllers/MessageController.js';
 
 const router = express.Router();
 
-
 // Messaging Routes
-router.post('/messages', sendMessage);
-router.get('/messages/:userId/:partnerId', fetchChatHistory);
+router.get('/messages/:userId/:partnerId', fetchChatHistory);  // This will now match the path parameters
 
 export default router;

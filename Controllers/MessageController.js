@@ -1,20 +1,9 @@
 import Message from '../models/MessageModel.js';
 
-export const sendMessage = async (req, res) => {
-  const { senderId, receiverId, content } = req.body;
-  try {
-    const message = new Message({ senderId, receiverId, content });
-    await message.save();
-
-    res.status(201).json(message);
-    console.log(message)
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
+// GET /messages/:userId/:partnerId
 export const fetchChatHistory = async (req, res) => {
-  const { userId, partnerId } = req.params;
+  const { userId, partnerId } = req.params;  // Use req.params for path parameters
+  console.log(`Fetching chat history for userId: ${userId} and partnerId: ${partnerId}`);
 
   try {
     const chatHistory = await Message.find({
@@ -22,7 +11,10 @@ export const fetchChatHistory = async (req, res) => {
         { senderId: userId, receiverId: partnerId },
         { senderId: partnerId, receiverId: userId },
       ],
-    }).sort({ timestamp: 1 });
+    })
+      .sort({ timestamp: 1 })
+      .select('senderId receiverId content timestamp delivered');
+    console.log(`Fetched ${chatHistory.length} messages from the database`);
 
     res.status(200).json(chatHistory);
   } catch (error) {

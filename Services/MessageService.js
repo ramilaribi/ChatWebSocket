@@ -2,7 +2,13 @@ import MessageModel from '../models/MessageModel.js';
 
 class MessageService {
   static async saveMessage({ content, senderId, receiverId, timestamp }) {
-    const newMessage = new MessageModel({ content, senderId, receiverId, timestamp });
+    const newMessage = new MessageModel({
+      content,
+      senderId,
+      receiverId,
+      timestamp,
+      delivered: false, 
+    });
     return newMessage.save();
   }
 
